@@ -206,6 +206,12 @@ const baseRuleProviders = {
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/geolocation-cn.mrs',
     path: './ruleset/geolocation-cn.mrs',
   },
+  cn_additional: {
+    ...ruleProviderCommonDomain,
+    ...ruleProviderFormatMrs,
+    url: 'https://static-file-global.353355.xyz/rules/cn-additional-list.mrs',
+    path: './ruleset/cn-additional-list.mrs',
+  },
   cn: {
     ...ruleProviderCommonDomain,
     ...ruleProviderFormatMrs,
@@ -354,6 +360,7 @@ const serviceConfigs = [
   {
     key: 'microsoft',
     name: 'Microsoft',
+    proxyMode: 'direct',
     providers: {
       microsoft: {
         ...ruleProviderCommonDomain,
@@ -368,6 +375,7 @@ const serviceConfigs = [
   {
     key: 'apple',
     name: 'Apple',
+    proxyMode: 'direct',
     providers: {
       apple: {
         ...ruleProviderCommonDomain,
@@ -859,6 +867,7 @@ function main(config) {
 
     // 兜底规则
     'RULE-SET,gfw,默认代理',
+    'RULE-SET,cn_additional,直连',
     'RULE-SET,cn_ip,直连',
     'MATCH,默认代理',
   ];

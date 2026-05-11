@@ -108,6 +108,7 @@ const serviceConfigs = [
   {
     key: 'microsoft',
     name: 'Microsoft',
+    proxyMode: 'direct',
     providers: {
       microsoft: {
         ...ruleProviderCommonDomain,
@@ -122,6 +123,7 @@ const serviceConfigs = [
   {
     key: 'apple',
     name: 'Apple',
+    proxyMode: 'direct',
     providers: {
       apple: {
         ...ruleProviderCommonDomain,

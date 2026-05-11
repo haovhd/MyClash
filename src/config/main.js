@@ -270,6 +270,7 @@ function main(config) {
 
     // 兜底规则
     'RULE-SET,gfw,默认代理',
+    'RULE-SET,cn_additional,直连',
     'RULE-SET,cn_ip,直连',
     'MATCH,默认代理',
   ];
