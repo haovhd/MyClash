@@ -521,7 +521,7 @@ function main(config) {
       '*': 'system',
       'rule-set:cn': [...chinaDNS],
     },
-    'direct-nameserver': ['system'],
+    'direct-nameserver': ['system', '223.5.5.5', '119.29.29.29'],
   };
 
   config['hosts'] = {
