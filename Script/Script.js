@@ -403,15 +403,15 @@ function main(config) {
 
   // 定义分流策略组对应的策略组成员
   const proxyModes = {
-    default: ['代理', ...groupNamesOfSelect],
-    direct: ['代理', '直连', ...groupNamesOfSelect],
+    default: ['默认代理', ...groupNamesOfSelect],
+    direct: ['默认代理', '直连', ...groupNamesOfSelect],
     reject: ['REJECT', 'REJECT-DROP', 'PASS'],
   };
 
   // 生成代理策略组
   functionalGroups.push({
     ...selectBaseOption,
-    name: '代理',
+    name: '默认代理',
     proxies: [...groupNamesOfSelect],
     icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Proxy.png',
   });
@@ -505,8 +505,8 @@ function main(config) {
     'https://doh.pub/dns-query#DIRECT',
   ];
   const foreignDNS = [
-    'https://dns.cloudflare.com/dns-query#代理',
-    'https://dns.google/dns-query#代理',
+    'https://dns.cloudflare.com/dns-query#默认代理',
+    'https://dns.google/dns-query#默认代理',
   ];
 
   config['dns'] = {
@@ -566,17 +566,17 @@ function main(config) {
     ...finalRules,
 
     // 代理规则
-    'RULE-SET,youtube,代理',
-    'RULE-SET,google,代理',
-    'RULE-SET,google_ip,代理,no-resolve',
-    'RULE-SET,twitter,代理',
-    'RULE-SET,twitter_ip,代理,no-resolve',
+    'RULE-SET,youtube,默认代理',
+    'RULE-SET,google,默认代理',
+    'RULE-SET,google_ip,默认代理,no-resolve',
+    'RULE-SET,twitter,默认代理',
+    'RULE-SET,twitter_ip,默认代理,no-resolve',
 
     // 兜底规则
-    'RULE-SET,gfw,代理',
+    'RULE-SET,gfw,默认代理',
     'RULE-SET,cn_additional,直连',
     'RULE-SET,cn_ip,直连',
-    'MATCH,代理',
+    'MATCH,默认代理',
   ];
 
   return config;
