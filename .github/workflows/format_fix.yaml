@@ -1,5 +1,4 @@
-# .github/workflows/build.yml
-name: build_script_and_check_format
+name: check_and_fix_format
 
 on:
   push:
@@ -10,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  check_and_fix:
     permissions:
       contents: write
 
