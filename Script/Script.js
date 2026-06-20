@@ -185,6 +185,7 @@ const serviceConfigs = [
   {
     key: 'ai',
     name: 'AI',
+    defaultSelected: '日本',
     providers: {
       ai: {
         ...ruleProviderCommonDomain,
@@ -385,6 +386,7 @@ function main(config) {
       ...selectBaseOption,
       name: svc.name,
       icon: svc.icon,
+      'default-selected': svc.defaultSelected,
       proxies: [...proxyModes[svc.proxyMode || 'default']],
     });
   }

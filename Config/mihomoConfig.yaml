@@ -506,6 +506,7 @@ proxy-groups:
 
   - name: 'AI'
     <<: [*group_common_select, *proxies_default]
+    default-selected: '日本'
     icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/ChatGPT.png'
 
   - name: 'YouTube'
