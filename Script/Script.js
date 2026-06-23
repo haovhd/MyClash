@@ -237,7 +237,7 @@ const serviceConfigs = [
   {
     key: 'adblock',
     name: '广告拦截',
-    proxyMode: 'reject',
+    reject: true,
     providers: {
       adblockmihomolite: {
         ...ruleProviderCommonDomain,
@@ -342,13 +342,6 @@ function main(config) {
   // 筛选类型为 select 的地区策略组
   const groupNamesOfSelect = generatedRegionGroups.filter((g) => g.type === 'select').map((g) => g.name);
 
-  // 定义分流策略组对应的策略组成员
-  const proxyModes = {
-    default: ['默认代理', ...groupNamesOfSelect],
-    direct: ['默认代理', '直连', ...groupNamesOfSelect],
-    reject: ['REJECT', 'REJECT-DROP', 'PASS'],
-  };
-
   // 生成代理策略组
   functionalGroups.push({
     ...selectBaseOption,
@@ -367,12 +360,17 @@ function main(config) {
       finalRuleProviders[providerName] = providerConfig;
     }
 
+    // 添加分流策略组对应的节点列表
+    const groupProxies = svc.reject
+      ? ['REJECT', 'REJECT-DROP', 'PASS']
+      : ['默认代理', ...groupNamesOfSelect, ...(svc.direct ? ['直连'] : [])];
+
     functionalGroups.push({
       ...selectBaseOption,
       name: svc.name,
       icon: svc.icon,
       'default-selected': svc.defaultSelected,
-      proxies: [...proxyModes[svc.proxyMode || 'default']],
+      proxies: groupProxies,
     });
   }
 

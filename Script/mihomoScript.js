@@ -291,7 +291,8 @@ const serviceConfigs = [
   {
     key: 'googlefcm',
     name: 'FCM',
-    proxyMode: 'directfirst',
+    direct: true,
+    defaultSelected: '直连',
     providers: {
       googlefcm: {
         ...ruleProviderCommonDomain,
@@ -340,7 +341,7 @@ const serviceConfigs = [
   {
     key: 'microsoft',
     name: 'Microsoft',
-    proxyMode: 'direct',
+    direct: true,
     providers: {
       microsoft: {
         ...ruleProviderCommonDomain,
@@ -355,7 +356,7 @@ const serviceConfigs = [
   {
     key: 'apple',
     name: 'Apple',
-    proxyMode: 'direct',
+    direct: true,
     providers: {
       apple: {
         ...ruleProviderCommonDomain,
@@ -476,7 +477,7 @@ const serviceConfigs = [
   {
     key: 'emby',
     name: 'Emby',
-    proxyMode: 'direct',
+    direct: true,
     providers: {
       emby: {
         ...ruleProviderCommonDomain,
@@ -491,7 +492,7 @@ const serviceConfigs = [
   {
     key: 'spotify',
     name: 'Spotify',
-    proxyMode: 'direct',
+    direct: true,
     providers: {
       spotify: {
         ...ruleProviderCommonDomain,
@@ -540,7 +541,7 @@ const serviceConfigs = [
   {
     key: 'adblock',
     name: '广告拦截',
-    proxyMode: 'reject',
+    reject: true,
     providers: {
       adblockmihomolite: {
         ...ruleProviderCommonDomain,
@@ -652,14 +653,6 @@ function main(config) {
   // 筛选类型为 select 的地区策略组
   const groupNamesOfSelect = generatedRegionGroups.filter((g) => g.type === 'select').map((g) => g.name);
 
-  // 定义分流策略组对应的策略组成员
-  const proxyModes = {
-    default: ['默认代理', '自动选择', '负载均衡', ...groupNamesOfSelect],
-    direct: ['默认代理', '直连', '自动选择', '负载均衡', ...groupNamesOfSelect],
-    directfirst: ['直连', '默认代理', '自动选择', '负载均衡', ...groupNamesOfSelect],
-    reject: ['REJECT', 'REJECT-DROP', 'PASS'],
-  };
-
   // 生成基础策略组
   functionalGroups.push(
     {
@@ -692,12 +685,17 @@ function main(config) {
       finalRuleProviders[providerName] = providerConfig;
     }
 
+    // 添加分流策略组对应的节点列表
+    const groupProxies = svc.reject
+      ? ['REJECT', 'REJECT-DROP', 'PASS']
+      : ['默认代理', '自动选择', '负载均衡', ...groupNamesOfSelect, ...(svc.direct ? ['直连'] : [])];
+
     functionalGroups.push({
       ...selectBaseOption,
       name: svc.name,
       icon: svc.icon,
       'default-selected': svc.defaultSelected,
-      proxies: [...proxyModes[svc.proxyMode || 'default']],
+      proxies: groupProxies,
     });
   }
 
