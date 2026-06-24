@@ -201,7 +201,7 @@ const baseRuleProviders = {
   cloudflare_cn: {
     ...ruleProviderCommonDomain,
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/cloudflare@cn.mrs',
-    path: './ruleset/cloudflare_cn.mrs',
+    path: './ruleset/cloudflare@cn.mrs',
     'path-in-bundle': 'geo/geosite/cloudflare@cn.mrs',
   },
   apple_cn: {
@@ -283,10 +283,7 @@ const serviceConfigs = [
       },
     },
     icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/YouTube.png',
-    rules: [
-      'AND,((NETWORK,UDP),(DST-PORT,443),(RULE-SET,youtube)),REJECT', // 阻断 YouTube UDP 流量
-      'RULE-SET,youtube,YouTube',
-    ],
+    rules: ['RULE-SET,youtube,YouTube'],
   },
   {
     key: 'googlefcm',
@@ -785,6 +782,7 @@ function main(config) {
 
   newConfig['allow-lan'] = true;
   newConfig['ipv6'] = true;
+  newConfig['mode'] = 'rule';
   newConfig['log-level'] = 'info';
   newConfig['bind-address'] = '*';
   newConfig['unified-delay'] = true;
