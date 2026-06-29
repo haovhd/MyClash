@@ -186,7 +186,6 @@ const urlTestBaseOption = {
 // 定义分流策略组配置
 const serviceConfigs = [
   {
-    key: 'ai',
     name: 'AI',
     defaultSelected: '美国',
     providers: {
@@ -201,7 +200,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,ai,AI'],
   },
   {
-    key: 'telegram',
     name: 'Telegram',
     providers: {
       telegram: {
@@ -221,7 +219,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,telegram,Telegram', 'RULE-SET,telegram_ip,Telegram,no-resolve'],
   },
   {
-    key: 'steam',
     name: 'Steam',
     direct: true,
     providers: {
@@ -236,8 +233,7 @@ const serviceConfigs = [
     rules: ['RULE-SET,steam,Steam'],
   },
   {
-    key: 'adblock',
-    name: '广告拦截',
+    name: 'AdBlock',
     reject: true,
     providers: {
       adblockmihomolite: {
@@ -248,7 +244,7 @@ const serviceConfigs = [
       },
     },
     icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Advertising.png',
-    rules: ['RULE-SET,adblockmihomolite,广告拦截'],
+    rules: ['RULE-SET,adblockmihomolite,AdBlock'],
   },
 ];
 
@@ -377,8 +373,10 @@ function main(config) {
       ...selectBaseOption,
       name: svc.name,
       icon: svc.icon,
-      'default-selected': svc.defaultSelected,
       proxies: groupProxies,
+      ...(svc.defaultSelected !== undefined && {
+        'default-selected': svc.defaultSelected,
+      }),
     });
   }
 

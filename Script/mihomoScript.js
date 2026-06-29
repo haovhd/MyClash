@@ -9,29 +9,29 @@
 // --- 静态配置区域 ---
 
 /**
- * 分流规则配置，会自动生成对应的策略组
+ * 分流策略组启用配置，若不需要某个策略组，请设为 false
  * true = 启用
  * false = 禁用
  */
 const ruleOptionsEnable = {
-  ai: true, // 国外AI服务
-  youtube: true, // YouTube
-  googlefcm: true, // FCM服务
-  google: true, // Google服务
-  github: true, // GitHub服务
-  microsoft: true, // Microsoft服务
-  apple: true, // Apple服务
-  telegram: true, // Telegram通讯软件
-  twitter: true, // Twitter社交平台
-  instagram: true, // Instagram社交平台
-  steam: true, // Steam游戏平台
-  cloudflare: true, // Cloudflare服务
-  pixiv: true, // Pixiv绘画网站
-  emby: true, // Emby媒体服务
-  spotify: true, // Spotify音乐服务
-  tiktok: true, // TikTok短视频平台
-  netflix: true, // Netflix视频服务
-  adblock: true, // 广告拦截
+  AI: true, // 国外AI服务
+  YouTube: true, // YouTube
+  FCM: true, // GoogleFCM服务
+  Google: true, // Google服务
+  GitHub: true, // GitHub服务
+  Microsoft: true, // Microsoft服务
+  Apple: true, // Apple服务
+  Telegram: true, // Telegram通讯软件
+  Cloudflare: true, // Cloudflare服务
+  Pixiv: true, // Pixiv绘画网站
+  Steam: true, // Steam游戏平台
+  Twitter: true, // Twitter社交平台
+  Instagram: true, // Instagram社交平台
+  Emby: true, // Emby媒体服务
+  Spotify: true, // Spotify音乐服务
+  TikTok: true, // TikTok短视频平台
+  Netflix: true, // Netflix视频服务
+  AdBlock: true, // 广告拦截
 };
 
 /**
@@ -241,7 +241,6 @@ const loadBalanceBaseOption = {
 // 定义分流策略组配置
 const serviceConfigs = [
   {
-    key: 'ai',
     name: 'AI',
     defaultSelected: '美国',
     providers: {
@@ -256,7 +255,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,ai,AI'],
   },
   {
-    key: 'youtube',
     name: 'YouTube',
     providers: {
       youtube: {
@@ -270,7 +268,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,youtube,YouTube'],
   },
   {
-    key: 'googlefcm',
     name: 'FCM',
     direct: true,
     defaultSelected: '直连',
@@ -286,7 +283,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,googlefcm,FCM'],
   },
   {
-    key: 'google',
     name: 'Google',
     providers: {
       google: {
@@ -306,7 +302,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,google,Google', 'RULE-SET,google_ip,Google,no-resolve'],
   },
   {
-    key: 'github',
     name: 'GitHub',
     providers: {
       github: {
@@ -320,7 +315,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,github,GitHub'],
   },
   {
-    key: 'microsoft',
     name: 'Microsoft',
     direct: true,
     providers: {
@@ -335,7 +329,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,microsoft,Microsoft'],
   },
   {
-    key: 'apple',
     name: 'Apple',
     direct: true,
     providers: {
@@ -350,7 +343,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,apple,Apple'],
   },
   {
-    key: 'telegram',
     name: 'Telegram',
     providers: {
       telegram: {
@@ -370,7 +362,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,telegram,Telegram', 'RULE-SET,telegram_ip,Telegram,no-resolve'],
   },
   {
-    key: 'cloudflare',
     name: 'Cloudflare',
     providers: {
       cloudflare: {
@@ -390,7 +381,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,cloudflare,Cloudflare', 'RULE-SET,cloudflare_ip,Cloudflare,no-resolve'],
   },
   {
-    key: 'pixiv',
     name: 'Pixiv',
     providers: {
       pixiv: {
@@ -408,7 +398,6 @@ const serviceConfigs = [
     ],
   },
   {
-    key: 'steam',
     name: 'Steam',
     direct: true,
     providers: {
@@ -423,7 +412,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,steam,Steam'],
   },
   {
-    key: 'twitter',
     name: 'Twitter',
     providers: {
       twitter: {
@@ -443,7 +431,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,twitter,Twitter', 'RULE-SET,twitter_ip,Twitter,no-resolve'],
   },
   {
-    key: 'instagram',
     name: 'Instagram',
     providers: {
       instagram: {
@@ -457,7 +444,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,instagram,Instagram'],
   },
   {
-    key: 'emby',
     name: 'Emby',
     direct: true,
     providers: {
@@ -472,7 +458,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,emby,Emby', 'DOMAIN-SUFFIX,mb3admin.com,Emby', 'DOMAIN-KEYWORD,emby,Emby'],
   },
   {
-    key: 'spotify',
     name: 'Spotify',
     direct: true,
     providers: {
@@ -487,7 +472,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,spotify,Spotify'],
   },
   {
-    key: 'tiktok',
     name: 'TikTok',
     providers: {
       tiktok: {
@@ -501,7 +485,6 @@ const serviceConfigs = [
     rules: ['RULE-SET,tiktok,TikTok'],
   },
   {
-    key: 'netflix',
     name: 'Netflix',
     providers: {
       netflix: {
@@ -521,8 +504,7 @@ const serviceConfigs = [
     rules: ['RULE-SET,netflix,Netflix', 'RULE-SET,netflix_ip,Netflix,no-resolve'],
   },
   {
-    key: 'adblock',
-    name: '广告拦截',
+    name: 'AdBlock',
     reject: true,
     providers: {
       adblockmihomolite: {
@@ -533,7 +515,7 @@ const serviceConfigs = [
       },
     },
     icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Advertising.png',
-    rules: ['RULE-SET,adblockmihomolite,广告拦截'],
+    rules: ['RULE-SET,adblockmihomolite,AdBlock'],
   },
 ];
 
@@ -662,7 +644,7 @@ function main(config) {
 
   // 构建分流策略组
   for (const svc of serviceConfigs) {
-    if (!ruleOptionsEnable[svc.key]) continue;
+    if (!ruleOptionsEnable[svc.name]) continue;
 
     finalRules.push(...svc.rules);
 
@@ -681,8 +663,10 @@ function main(config) {
       ...selectBaseOption,
       name: svc.name,
       icon: svc.icon,
-      'default-selected': svc.defaultSelected,
       proxies: groupProxies,
+      ...(svc.defaultSelected !== undefined && {
+        'default-selected': svc.defaultSelected,
+      }),
     });
   }
 
