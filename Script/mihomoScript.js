@@ -26,6 +26,7 @@ const ruleOptionsEnable = {
   TikTok: true, // TikTok视频平台
   Twitter: true, // Twitter社交平台
   Emby: true, // Emby媒体服务
+  PikPak: true, // PikPak网盘服务
   Spotify: true, // Spotify音乐服务
   AdBlock: true, // 广告拦截
 };
@@ -245,6 +246,7 @@ const serviceConfigs = [
   },
   {
     name: 'Media',
+    defaultSelected: '日本',
     providers: {
       youtube: {
         ...ruleProviderCommonDomain,
@@ -477,6 +479,20 @@ const serviceConfigs = [
     rules: ['RULE-SET,emby,Emby', 'DOMAIN-SUFFIX,mb3admin.com,Emby', 'DOMAIN-KEYWORD,emby,Emby'],
   },
   {
+    name: 'PikPak',
+    direct: true,
+    providers: {
+      pikpak: {
+        ...ruleProviderCommonDomain,
+        url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/pikpak.mrs',
+        path: './ruleset/pikpak.mrs',
+        'path-in-bundle': 'geo/geosite/pikpak.mrs',
+      },
+    },
+    icon: 'https://fastly.jsdelivr.net/gh/lige47/QuanX-icon-rule@main/icon/03CNSoft/pikpak.png',
+    rules: ['RULE-SET,pikpak,PikPak'],
+  },
+  {
     name: 'Spotify',
     direct: true,
     providers: {
@@ -661,16 +677,16 @@ function main(config) {
   functionalGroups.push(
     {
       ...selectBaseOption,
+      name: '漏网之鱼',
+      proxies: ['默认代理', '直连'],
+      icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Stack.png',
+    },
+    {
+      ...selectBaseOption,
       name: '直连',
       proxies: ['🇨🇳 直连 | IPv4优先', '🇨🇳 直连 | IPv6优先', '🇨🇳 直连 | 双栈'],
       url: 'https://connectivitycheck.platform.hicloud.com/generate_204',
       icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/China_Map.png',
-    },
-    {
-      ...selectBaseOption,
-      name: '漏网之鱼',
-      proxies: ['默认代理', '直连'],
-      icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Stack.png',
     },
   );
 

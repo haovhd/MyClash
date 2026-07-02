@@ -361,16 +361,16 @@ proxy-groups:
     <<: [*group_common_select, *proxies_reject]
     icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Advertising.png'
 
+  - name: '漏网之鱼'
+    <<: *group_common_select
+    proxies: ['默认代理', '直连']
+    icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Stack.png'
+
   - name: '直连'
     <<: *group_common_select
     proxies: ['🇨🇳 直连 | IPv4优先', '🇨🇳 直连 | IPv6优先', '🇨🇳 直连 | 双栈']
     url: 'https://connectivitycheck.platform.hicloud.com/generate_204'
     icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/China_Map.png'
-
-  - name: '漏网之鱼'
-    <<: *group_common_select
-    proxies: ['默认代理', '直连']
-    icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Stack.png'
 
   # 定义地区策略组
   - name: '香港'

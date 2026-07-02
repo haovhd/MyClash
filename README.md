@@ -96,6 +96,7 @@ https://raw.githubusercontent.com/AIsouler/MyClash/main/Config/mihomoConfigLite.
 - `TikTok`
 - `Twitter`
 - `Emby`
+- `PikPak`
 - `Spotify`
 - `AdBlock`
 - `直连` （可自定义IP优先级，建议使用 `IPv4优先`，防止出现一些问题）

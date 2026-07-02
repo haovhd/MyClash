@@ -326,6 +326,11 @@ rule-providers:
     url: 'https://fastly.jsdelivr.net/gh/666OS/rules@release/mihomo/domain/Emby.mrs'
     path: './ruleset/emby.mrs'
     path-in-bundle: 'geo/geosite/category-emby.mrs'
+  pikpak:
+    <<: *rule_providers_domain
+    url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/pikpak.mrs'
+    path: './ruleset/pikpak.mrs'
+    'path-in-bundle': 'geo/geosite/pikpak.mrs'
   spotify:
     <<: *rule_providers_domain
     url: 'https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@meta/geo/geosite/spotify.mrs'
@@ -482,6 +487,7 @@ proxy-groups:
     icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/ChatGPT.png'
 
   - name: 'Media'
+    default-selected: '日本'
     <<: [*group_common_select, *proxies_default]
     icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/ForeignMedia.png'
 
@@ -527,6 +533,10 @@ proxy-groups:
     <<: [*group_common_select, *proxies_direct]
     icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Emby.png'
 
+  - name: 'PikPak'
+    <<: [*group_common_select, *proxies_direct]
+    icon: 'https://fastly.jsdelivr.net/gh/lige47/QuanX-icon-rule@main/icon/03CNSoft/pikpak.png'
+
   - name: 'Spotify'
     <<: [*group_common_select, *proxies_direct]
     icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Spotify.png'
@@ -535,16 +545,16 @@ proxy-groups:
     <<: [*group_common_select, *proxies_reject]
     icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Advertising.png'
 
+  - name: '漏网之鱼'
+    <<: *group_common_select
+    proxies: ['默认代理', '直连']
+    icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Stack.png'
+
   - name: '直连'
     <<: *group_common_select
     proxies: ['🇨🇳 直连 | IPv4优先', '🇨🇳 直连 | IPv6优先', '🇨🇳 直连 | 双栈']
     url: 'https://connectivitycheck.platform.hicloud.com/generate_204'
     icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/China_Map.png'
-
-  - name: '漏网之鱼'
-    <<: *group_common_select
-    proxies: ['默认代理', '直连']
-    icon: 'https://fastly.jsdelivr.net/gh/Koolson/Qure@master/IconSet/Color/Stack.png'
 
   # 定义地区策略组
   - name: '香港'
@@ -672,6 +682,7 @@ rules:
   - RULE-SET,emby,Emby
   - DOMAIN-SUFFIX,mb3admin.com,Emby
   - DOMAIN-KEYWORD,emby,Emby
+  - RULE-SET,pikpak,PikPak
   - RULE-SET,spotify,Spotify
 
   # 代理规则（IP）
