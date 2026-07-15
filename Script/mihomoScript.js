@@ -704,23 +704,21 @@ function main(config) {
     (dns) => !commonDnsRegex.test(String(dns)),
   );
 
-  // 合并 nameserver-policy 和 proxy-server-nameserver-policy
-  // 部分机场会把节点域名解析器写到 nameserver-policy 中
+  // 收集所有节点域名
+  const proxyDomains = new Set(
+    filteredProxies.filter((proxy) => typeof proxy.server === 'string').map((proxy) => proxy.server.toLowerCase()),
+  );
+
+  // 提取节点域名对应的 DNS 配置
   const originalPolicyNameserver = {};
-
   for (const policy of [
-    originalDnsConfig['proxy-server-nameserver-policy'] || {}, // 优先遍历此项配置
     originalDnsConfig['nameserver-policy'] || {},
+    originalDnsConfig['proxy-server-nameserver-policy'] || {},
   ]) {
-    for (const [rule, dns] of Object.entries(policy)) {
-      const dnsList = Array.isArray(dns) ? dns : [dns];
-
-      // 只要有一个匹配公共 DNS，就跳过整个规则
-      if (dnsList.some((item) => commonDnsRegex.test(String(item)))) {
-        continue;
+    for (const [domain, dns] of Object.entries(policy)) {
+      if (proxyDomains.has(domain.toLowerCase())) {
+        originalPolicyNameserver[domain] = dns;
       }
-
-      originalPolicyNameserver[rule] = dns;
     }
   }
 
@@ -750,11 +748,6 @@ function main(config) {
   };
 
   // ---hosts 配置---
-
-  // 收集所有节点域名
-  const proxyDomains = new Set(
-    filteredProxies.filter((proxy) => typeof proxy.server === 'string').map((proxy) => proxy.server.toLowerCase()),
-  );
 
   // 提取订阅 hosts 中与节点域名对应的记录
   const originalHosts = config.hosts || {};
